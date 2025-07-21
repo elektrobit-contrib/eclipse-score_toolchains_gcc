@@ -42,7 +42,7 @@ def _impl(rctx):
         rctx.attr._cc_tolchain_build,
         {
             "%{gcc_repo}": rctx.attr.gcc_repo,
-            "%{tc_name}": "host_gcc_12",
+            "%{tc_name}": "aarch64_gcc_13",
         },
     )
     minimal_warnings = "[]"

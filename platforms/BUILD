@@ -12,9 +12,9 @@
 # *******************************************************************************
 
 platform(
-    name = "x86_64-linux",
+    name = "aarch64-linux",
     constraint_values = [
-        "@platforms//cpu:x86_64",
+        "@platforms//cpu:aarch64",
         "@platforms//os:linux",
     ],
     visibility = ["//visibility:public"],

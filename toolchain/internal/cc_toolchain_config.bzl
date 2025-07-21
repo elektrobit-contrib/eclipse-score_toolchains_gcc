@@ -4,6 +4,8 @@ load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "ACTION_NAMES")
 load(
     "@bazel_tools//tools/cpp:cc_toolchain_config_lib.bzl",
     "action_config",
+    "env_entry",
+    "env_set",
     "feature",
     "flag_group",
     "flag_set",
@@ -154,16 +156,6 @@ def _impl(ctx):
         enabled = True,
         flag_sets = [
             flag_set(
-                actions = all_compile_actions,
-                flag_groups = [
-                    flag_group(
-                        flags = [
-                            "-m64",
-                        ],
-                    ),
-                ],
-            ),
-            flag_set(
                 actions = all_cpp_compile_actions,
                 flag_groups = [
                     flag_group(
@@ -219,6 +211,7 @@ def _impl(ctx):
         "-lrt",
         "-static-libstdc++",
         "-static-libgcc",
+        "-static"
     ]
 
     default_link_flags_feature = feature(
@@ -344,6 +337,19 @@ def _impl(ctx):
         ],
     )
 
+    sdk_env_feature = feature(
+        name = "sdk_env",
+        enabled = True,
+        env_sets = [
+            env_set(
+                actions = all_actions,
+                env_entries = [
+                    env_entry(key = "LD_LIBRARY_PATH", value = "/proc/self/cwd/" + ctx.file.sysroot.path + "/usr/lib/x86_64-linux-gnu"),
+                ],
+            ),
+        ],
+    )
+
     # The order of the features is relevant, they are applied in this specific order.
     # A command line parameter from a feature at the end of the list will appear
     # after a command line parameter from a feature at the beginning of the list.
@@ -357,10 +363,11 @@ def _impl(ctx):
         pthread_feature,
         minimal_warnings_feature,
         opt_feature,
-        strict_warnings_feature,
+        sdk_env_feature,
+        # strict_warnings_feature,
         supports_dynamic_linker_feature,
         supports_pic_feature,
-        treat_warnings_as_errors_feature,
+        # treat_warnings_as_errors_feature,
         unfiltered_compile_flags_feature,
         supports_fission_feature,
     ]
@@ -382,9 +389,9 @@ def _impl(ctx):
         cxx_builtin_include_directories = cxx_builtin_include_directories,
         features =  features,
         action_configs = action_configs,
-        host_system_name = "local",
-        target_system_name = "x86_64-linux",
-        target_cpu = "x86_64",
+        host_system_name = "x86_64-linux-gnu",
+        target_system_name = "aarch64-linux-gnu",
+        target_cpu = "aarch64",
         target_libc = "unknown",
         toolchain_identifier = toolchain_full_name,
         tool_paths = tool_paths,

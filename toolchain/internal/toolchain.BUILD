@@ -28,7 +28,7 @@ cc_toolchain_config(
     gcov_binary = "@%{gcc_repo}//:gcov",
     strip_binary = "@%{gcc_repo}//:strip",
     sysroot = "@%{gcc_repo}//:sysroot_dir",
-    version = "12",
+    version = "13",
 )
 
 cc_toolchain(
@@ -52,7 +52,7 @@ toolchain(
         "@platforms//os:linux",
     ],
     target_compatible_with = [
-        "@platforms//cpu:x86_64",
+        "@platforms//cpu:aarch64",
         "@platforms//os:linux",
     ],
     toolchain = ":cc_toolchain",

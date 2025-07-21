@@ -25,30 +25,36 @@ filegroup(
 
 filegroup(
     name = "ar",
-    srcs = ["bin/x86_64-unknown-linux-gnu-ar"],
+    srcs = ["usr/bin/aarch64-linux-gnu-ar"],
 )
 
 filegroup(
     name = "gcc",
-    srcs = ["bin/x86_64-unknown-linux-gnu-gcc"],
+    srcs = ["usr/bin/aarch64-linux-gnu-gcc-13.bin"],
 )
 
 filegroup(
+    name = "ld",
+    srcs = ["usr/bin/aarch64-linux-gnu-ld.bfd.bin"],
+)
+
+
+filegroup(
     name = "gcov",
-    srcs = ["bin/x86_64-unknown-linux-gnu-gcov"],
+    srcs = ["usr/bin/aarch64-linux-gnu-gcov-13"],
 )
 
 filegroup(
     name = "gpp",
-    srcs = ["bin/x86_64-unknown-linux-gnu-g++"],
+    srcs = ["usr/bin/aarch64-linux-gnu-g++-13.bin"],
 )
 
 filegroup(
     name = "strip",
-    srcs = ["bin/x86_64-unknown-linux-gnu-strip"],
+    srcs = ["usr/bin/aarch64-linux-gnu-strip"],
 )
 
 filegroup(
     name = "sysroot_dir",
-    srcs = ["x86_64-unknown-linux-gnu/sysroot"],
+    srcs = ["."],
 )
