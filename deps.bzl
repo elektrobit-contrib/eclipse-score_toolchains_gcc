@@ -27,7 +27,7 @@ def toolchain_gcc_dependencies():
         http_archive(
             name = "gcc_toolchain_gcc",
             build_file = "@score_toolchains_gcc//toolchain/third_party:gcc.BUILD",0
-            url = "https://github.com/eclipse-score/toolchains_gcc/releases/download/0.0.1/x86_64-unknown-linux-gnu_gcc12.tar.gz",
-            sha256 = "457f5f20f57528033cb840d708b507050d711ae93e009388847e113b11bf3600",
-            strip_prefix = "x86_64-unknown-linux-gnu",
+            url = "https://linux.elektrobit.com/tmp/score/fastdev-sdk-ubuntu-ebcl-deb-qemuarm64.tar.xz",
+            sha256 = "7aeab39080bffcc2c5ce4869acaa9c3192c0c1d845afa51d5556748f8d328ab8",
+            strip_prefix = "fastdev-sdk-ubuntu-ebcl-deb-qemuarm64",
         )
