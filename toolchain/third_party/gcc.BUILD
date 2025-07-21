@@ -34,12 +34,6 @@ filegroup(
 )
 
 filegroup(
-    name = "ld",
-    srcs = ["usr/bin/aarch64-linux-gnu-ld.bfd.bin"],
-)
-
-
-filegroup(
     name = "gcov",
     srcs = ["usr/bin/aarch64-linux-gnu-gcov-13"],
 )
