@@ -15,7 +15,7 @@ package(default_visibility = ["//visibility:public"])
 
 filegroup(
     name = "all_files",
-    srcs = glob(["*/**/*"], exclude = ["usr/share/ca-certificates/**","usr/lib/ssl/certs/**", "lib/ssl/certs/**", "etc/ssl/certs/**"),
+    srcs = glob(["*/**/*"], exclude = ["usr/share/ca-certificates/**","usr/lib/ssl/certs/**", "lib/ssl/certs/**", "etc/ssl/certs/**"]) ,
 )
 
 filegroup(
