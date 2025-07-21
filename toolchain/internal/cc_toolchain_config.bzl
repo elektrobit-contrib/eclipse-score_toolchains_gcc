@@ -211,7 +211,8 @@ def _impl(ctx):
         "-lrt",
         "-static-libstdc++",
         "-static-libgcc",
-        "-static"
+        "-static",
+        "-no-canonical-prefixes"
     ]
 
     default_link_flags_feature = feature(
