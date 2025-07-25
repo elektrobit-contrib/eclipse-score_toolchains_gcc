@@ -24,6 +24,7 @@ cc_toolchain_config(
     ar_binary = "@%{gcc_repo}//:ar",
     cc_binary = "@%{gcc_repo}//:gcc",
     cxx_binary = "@%{gcc_repo}//:gpp",
+    elf_enabler_binary = "@%{gcc_repo}//:elf-enabler",
     flavour = "gcc",
     gcov_binary = "@%{gcc_repo}//:gcov",
     strip_binary = "@%{gcc_repo}//:strip",

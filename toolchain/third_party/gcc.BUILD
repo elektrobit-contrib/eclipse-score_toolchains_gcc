@@ -49,6 +49,11 @@ filegroup(
 )
 
 filegroup(
+    name = "elf-enabler",
+    srcs = ["usr/bin/lisa-elf-enabler"],
+)
+
+filegroup(
     name = "sysroot_dir",
     srcs = ["."],
 )

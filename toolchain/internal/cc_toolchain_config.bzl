@@ -406,6 +406,7 @@ cc_toolchain_config = rule(
         "cc_binary": attr.label(allow_single_file = True, executable = True, cfg = "exec", mandatory = True),
         "cxx_binary": attr.label(allow_single_file = True, executable = True, cfg = "exec", mandatory = True),
         "gcov_binary": attr.label(allow_single_file = True, executable = True, cfg = "exec", mandatory = True),
+        "elf_enabler_binary": attr.label(allow_single_file = True, executable = True, cfg = "exec", mandatory = True),
         "flavour": attr.string(mandatory = True),
         "strip_binary": attr.label(allow_single_file = True, executable = True, cfg = "exec", mandatory = True),
         "sysroot": attr.label(allow_single_file = True, mandatory = True),
