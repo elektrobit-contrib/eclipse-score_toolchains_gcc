@@ -351,6 +351,26 @@ def _impl(ctx):
         ],
     )
 
+    link_std_cpp_lib_feature = feature(
+        name = "link_std_cpp_lib",
+        enabled = True,  # always enabled for now
+        flag_sets = [
+            flag_set(
+                actions = all_link_actions,
+                flag_groups = [
+                    flag_group(
+                        flags = [
+                            # GCC toolchains
+                            "-lstdc++"
+                            # If you use clang toolchains, you might need:
+                            
+                        ],
+                    ),
+                ],
+            ),
+        ],
+    )
+
     # The order of the features is relevant, they are applied in this specific order.
     # A command line parameter from a feature at the end of the list will appear
     # after a command line parameter from a feature at the beginning of the list.
@@ -362,6 +382,7 @@ def _impl(ctx):
         cxx20_feature,
         default_link_flags_feature,
         pthread_feature,
+        link_std_cpp_lib_feature,
         minimal_warnings_feature,
         opt_feature,
         sdk_env_feature,
