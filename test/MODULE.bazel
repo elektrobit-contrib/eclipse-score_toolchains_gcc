@@ -41,4 +41,4 @@ gcc.warning_flags(
     treat_warnings_as_errors = ["-Werror"],
 )
 use_repo(gcc, "gcc_toolchain", "gcc_toolchain_gcc")
-register_toolchains("@gcc_toolchain//:host_gcc_12")
+register_toolchains("@gcc_toolchain//:aarch64_gcc_13")
