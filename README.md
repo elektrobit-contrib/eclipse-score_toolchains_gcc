@@ -28,32 +28,45 @@ toolchain_gcc_dependencies()
 ## Configuring the toolchain to a project needs
 The `score_toolchains_gcc` module currently supports only GNU GCC version **12.2.0**. Support for multiple GCC versions is planned, with future versions expected to be selectable via an extended toolchain interface. As of now, version 12.2.0 is the sole supported target.
 
-The module exposes an API that allows consumers to enable or disable specific toolchain behaviors related to compilation diagnostics. The following features can be individually configured:
+The module exposes an API that allows consumers to enable or disable specific toolchain behaviors related to compilation diagnostics.
+By default, the toolchain activates the following features using predefined compiler flags:
 
-1. Minimal warning flags — enables a basic set of compiler warnings
-2. Strict warning flags — enables a more aggressive set of warnings (e.g., `-Wall, -Wextra`)
-3. A `treat warnings as errors` flags — promotes all warnings to errors (e.g., `-Werror`)
+1. Minimal warning flags — Enables a basic set of compiler warnings (e.g., `-Wall`) which cannot be disabled by consumers.
+2. Strict warning flags — Enables a more aggressive set of warnings (e.g., `-Wextra`, `-Wpedantic`) which may be disabled by consumers if desired. 
+3. A `treat warnings as errors` flags — Promotes all warnings to errors using -Werror and exceptions like -Wno-error=deprecated-declarations.
 
-These features provide fine-grained control over the compiler's warning policy. If no features are explicitly selected, the toolchain will apply no additional warning-related flags by default.
+Consumers can modify features by adding or removing them in the module configuration.
+To disable a feature, prefix its name with a dash (e.g., `-strict_warnings`).
+However, the following features are protected and cannot be disabled:
+- `minimal_warnings`
+- `treat_warnings_as_errors`
+
+When a feature is disabled, neither the default nor any user-defined flags associated with it will be applied.
+
+Consumers can provide custom compiler warning flags through the additional_warnings feature.
+This feature accepts a list of flags following any of these patterns: `-W<warning-name>`, `-Wno-<warning-name>`, and `-Wno-error=<warning-name>`.
+
+Important restrictions:
+- Warnings enabled by minimal_warnings cannot be disabled.
+- Warnings enabled by -Wall cannot be disabled or converted back to non-errors.
+- Attempts to use `-Wno-error` for any protected warning will fail.
 
 To set wanted flags, the following API needs to be used:
 ```python
 gcc = use_extension("@score_toolchains_gcc//extentions:gcc.bzl", "gcc")
 gcc.extra_features(
     features = [
-        "minimal_warnings",
-        "treat_warnings_as_errors",
+        "-strict_warnings",
+        "additional_warnings"
     ],
 )
 gcc.warning_flags(
-    minimal_warnings = ["-Wall", "-Wno-error=deprecated-declarations"],
-    strict_warnings = ["-Wextra", "-Wpedantic"],
-    treat_warnings_as_errors = ["-Werror"],
+    additional_warnings = ["-Wno-bool-compare"],
 )
 use_repo(gcc, "gcc_toolchain", "gcc_toolchain_gcc")
 ```
-* `extra_features` - This will enable all features which are set in the list.
-* `warning_flags` - This will set flags for selected features.
+* `extra_features` - Enables or disables features listed by the consumer.
+* `warning_flags` - Sets additional compiler flags for the feature `additional_warnings` when it is enabled.
 
 ### Using WORKSPACE file
 The same approuch needs to be done when configuring toolchain over WORKSPACE file:
@@ -63,13 +76,11 @@ gcc_toolchain(
     name = "gcc_toolchain",
     gcc_repo = "gcc_toolchain_gcc",
     extra_features = [
-        "minimal_warnings",
-        "treat_warnings_as_errors",
+        "-strict_warnings",
+        "additional_warnings",
     ],
     warning_flags = {
-        "minimal_warnings": ["-Wall", "-Wno-error=deprecated-declarations"],
-        "strict_warnings": ["-Wextra", "-Wpedantic"],
-        "treat_warnings_as_errors": ["-Werror"],
+        "additional_warnings": ["-Wno-bool-compare"],
     },
 )
 ```

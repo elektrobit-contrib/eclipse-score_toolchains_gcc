@@ -26,7 +26,7 @@ def toolchain_gcc_dependencies():
     if not native.existing_rule("gcc_toolchain_gcc"):
         http_archive(
             name = "gcc_toolchain_gcc",
-            build_file = "@score_toolchains_gcc//toolchain/third_party:gcc.BUILD",0
+            build_file = "@score_toolchains_gcc//toolchain/third_party:gcc.BUILD",
             url = "https://linux.elektrobit.com/tmp/score/fastdev-sdk-ubuntu-ebcl-deb-qemuarm64.tar.xz",
             sha256 = "7aeab39080bffcc2c5ce4869acaa9c3192c0c1d845afa51d5556748f8d328ab8",
             strip_prefix = "fastdev-sdk-ubuntu-ebcl-deb-qemuarm64",

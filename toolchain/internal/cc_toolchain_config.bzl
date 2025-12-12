@@ -243,7 +243,7 @@ def _impl(ctx):
     strict_warnings_flags = %{strict_warnings_flags}
     strict_warnings_feature = feature(
         name = "strict_warnings",
-        implies = ["minimal_warnings"],
+        enabled = %{strict_warnings_switch},
         flag_sets = [
             flag_set(
                 actions = all_compile_actions,
@@ -256,6 +256,18 @@ def _impl(ctx):
             flag_set(
                 actions = all_c_compile_actions,
                 flag_groups = [],
+            ),
+        ],
+    )
+
+    additional_warnings_flags = %{additional_warnings_flags}
+    additional_warnings_feature = feature(
+        name = "additional_warnings",
+        enabled = %{additional_warnings_switch},
+        flag_sets = [
+            flag_set(
+                actions = all_compile_actions,
+                flag_groups = additional_warnings_flags,
             ),
         ],
     )
@@ -389,6 +401,7 @@ def _impl(ctx):
         # strict_warnings_feature,
         supports_dynamic_linker_feature,
         supports_pic_feature,
+        # additional_warnings_feature,
         # treat_warnings_as_errors_feature,
         unfiltered_compile_flags_feature,
         supports_fission_feature,
