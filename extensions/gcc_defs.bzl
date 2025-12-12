@@ -19,14 +19,12 @@ DEFAULT_MINIMAL_WARNINGS = [
     "-Wredundant-decls",
     "-Wreturn-local-addr",
     "-Wcast-qual",
-    "-Wbad-function-cast",
     "-Wodr",
     "-Wsizeof-array-argument",
     "-Wformat=2",
     "-Wmissing-format-attribute",
     "-Wformat-nonliteral",
     "-Wformat-signedness",
-    "-Wmissing-prototypes",
     "-Wreorder"
 ]
 
